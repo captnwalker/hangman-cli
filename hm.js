@@ -1,3 +1,3 @@
 //Hangman CLI Game
 
-console.log("I hate Hangman");
+console.log("Hangman is Loaded. Good luck!");

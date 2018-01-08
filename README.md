@@ -11,6 +11,7 @@
 * NodeJS
 * JavaScript
 * NPM Inquirer
+* NPM Prompt
 
 ### Author
 
