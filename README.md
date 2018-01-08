@@ -1,6 +1,6 @@
 # Hangman-CLI
 
->Command Line Interface (CLI) Hangman Game built in NODE.js. to begin, at commnad prompt type hangman.js.
+>Command Line Interface (CLI) Hangman Game built in NODE.js. To begin, at the command prompt, type `node hm.js`. Good Luck!
 
 ### Screenshot of this Project
 
