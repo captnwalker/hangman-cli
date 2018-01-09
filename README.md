@@ -6,7 +6,7 @@
 
 1. Clone repo
 2. Run `npm install`
-3. At command prompt run `node hm.js`
+3. At command prompt run `node hangman.js`
 
 ### Screenshot of this Project
 
@@ -18,6 +18,8 @@
 * JavaScript
 * NPM Inquirer
 * NPM Prompt
+* NPM Chalk
+* NOM Figlet
 
 ### Author
 
