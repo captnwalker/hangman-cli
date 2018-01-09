@@ -9,6 +9,8 @@ const chalk = require('chalk');
 
 var figlet = require('figlet');
 
+var playersGuess = require('./word.js');
+
 
 //Game Intro and instructions
 
@@ -70,8 +72,24 @@ var game = {
         console.log("Guesses Remaining: " + game.remainingGuesses);
 
         //Prompt for another letter
-        keepPromptingUser();
+        guessAgain();
     }
-
-
 };
+
+function guessAgain() {
+    
+    //prompt player for a new letter unless 0
+    if (game.remainingGuesses > 0) {
+        inquirer.prompt([
+            {
+                type: "value",
+                name: "letter",
+                message: "Guess another Letter: "
+            }
+        ]).then(function (userInput) {
+
+            // Collect Letter Input
+            var letterGuessed = userInput.letter.toLowerCase();
+
+            // Valid input
+            if (dictionary.indexOf(letterGuessed) == -1) {
