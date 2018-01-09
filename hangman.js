@@ -39,12 +39,29 @@ figlet('Welcome to ', function (err, data) {
             }
             console.log(chalk.red.bgYellowBright.bold(data))
 
-            console.log(chalk.blueBright.bgYellowBright.bold("           10 Guesses Permitted, You May Begin         "));
+            console.log(chalk.blueBright.bgYellowBright.bold("        10 Guesses Permitted *** You May Begin         "));
         });
     });
 });
-        //Vars - set permitted letters and arrays for guesses
-        var letter = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-        var guessed = [];
-        var correctGuess = [];
+//Vars - set permitted letters and arrays for guesses
+var letter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+var guessed = [];
+var correctGuess = [];
 
+var game = {
+    //fetch words, set # of guesses, start null
+    wordBank: dictionary,
+    guessesRemaining: 10,
+    currentWrd: null,
+
+
+    setupGame: function () {
+        //initial guess count
+        this.guessesRemaining = 10;
+
+        //generate random POTUS name
+        var pres = Math.floor(Math.random() * this.dictionary.length);
+        this.currentWord = this.dictionary[pres];
+
+    }
+}

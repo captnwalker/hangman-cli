@@ -19,7 +19,7 @@
 * NPM Inquirer
 * NPM Prompt
 * NPM Chalk
-* NOM Figlet
+* NPM Figlet
 
 ### Author
 
