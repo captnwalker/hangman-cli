@@ -8,7 +8,7 @@ var potus = [
     "van buren",
     "harrison",
     "tyler",
-    "polk",
+    "polk", 
     "taylor",
     "pillmore",
     "pierce",

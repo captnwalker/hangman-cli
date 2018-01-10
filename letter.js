@@ -5,7 +5,7 @@ var displayLetter = function (word, correctGuess) {
     this.goodLetter = correctGuess;
     this.displayText = '';
 
-    //set winner false initially
+    //set winner false initially 
     this.winner = false;
 
     //function displays word to player

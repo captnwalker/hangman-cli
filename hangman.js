@@ -56,7 +56,7 @@ figlet('', function (err, data) {
     });
 });
 
-//Vars - set permitted letters, arrays for guesses and display 'gallows'
+//Vars - set permitted letters, arrays for guesses and display 'gallows' 
 var letter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 var guessedLetters = [];
 var correctGuesses = [];
