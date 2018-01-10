@@ -21,6 +21,8 @@
 * NPM Chalk
 * NPM Figlet
 
+---
+
 ### Author
 
 * Steve Walker
