@@ -9,14 +9,11 @@ const chalk = require('chalk');
 
 var figlet = require('figlet');
 
+var displayLetter = require('./letter.js');
+
 var playersGuess = require('./word.js');
 
-
-//Game Intro and instructions
-
-//console.log(chalk.blue('Hello world!'));
-
-//console.log(chalk.blueBright.bgYellowBright.bold("Hangman is Loaded. Good luck!"));
+//Game Splash Intro Screen and instructions
 figlet('Welcome to ', function (err, data) {
     if (err) {
         console.log('Something went wrong...');
@@ -45,6 +42,7 @@ figlet('Welcome to ', function (err, data) {
         });
     });
 });
+
 //Vars - set permitted letters, arrays for guesses and display
 var letter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 var guessed = [];
@@ -77,7 +75,7 @@ var game = {
 };
 
 function guessAgain() {
-    
+
     //prompt player for a new letter unless 0
     if (game.remainingGuesses > 0) {
         inquirer.prompt([

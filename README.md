@@ -1,6 +1,6 @@
 # Hangman-CLI
 
->Command Line Interface (CLI) Hangman Game built with NODE.js along with Prompt and Inquirer NPM's. Styled with Chalk and Figlet NPM's and given a Presidential Theme. **_Guess the Name of the POTUS!_** To begin, at the command prompt, type `node hangman.js`. Good Luck!
+>Command-Line Interface (CLI) Hangman Game built with NODE.js along with Prompt and Inquirer NPM's. Styled with Chalk and Figlet NPM's and given a Presidential Theme. **_Guess the Name of the POTUS!_** To begin, at the command prompt, type `node hangman.js`. **_Good Luck!_**
 
 ### Deployment
 
