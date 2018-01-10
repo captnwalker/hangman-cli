@@ -16,6 +16,14 @@ var playersGuess = require('./word.js');
 var playersGuess = require('./dictionary.js');
 
 //Game Splash Intro Screen and instructions
+figlet('', function (err, data) {
+    if (err) {
+        console.log('Something went wrong...');
+        console.dir(err);
+        return;
+    }
+    console.log(chalk.red.bgYellowBright.hidden(data))
+
 figlet('Welcome to ', function (err, data) {
     if (err) {
         console.log('Something went wrong...');
@@ -44,16 +52,18 @@ figlet('Welcome to ', function (err, data) {
         });
     });
 });
+});
 
-//Vars - set permitted letters, arrays for guesses and display
+//Vars - set permitted letters, arrays for guesses and display 'gallows'
 var letter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 var guessed = [];
 var correctGuess = [];
-var letterDisplay;
+var displayGallows;
+
 //Set game var
 var game = {
     //Fetch words, set # of guesses, start null
-    wordBank: dictionary,
+    potus: wordList,
     guessesRemaining: 10,
     currentWord: null,
 
@@ -63,20 +73,23 @@ var game = {
         this.remainingGuesses = 10;
 
         //Generate random POTUS name from dictionary.js
-        var pres = Math.floor(Math.random() * this.dictionary.length);
-        this.currentWord = this.dictionary[pres];
+        var i = Math.floor(Math.random() * this.potus.length);
+        this.currentWord = this.potus[i];
 
         //Display letters placeholders and any correctly guessed letters here
-        letterDisplay = new displayLetters(this.currentWord);
-        letterDisplay.parseDisplay();
+        displayGallows = new displayLetter(this.currentWord);
+        displayGallows.parseDisplay();
         console.log("Guesses Remaining: " + game.remainingGuesses);
 
-        //Prompt for another letter
+        //Prompt for another guess
         guessAgain();
     }
 };
 
 function guessAgain() {
+
+    // Insert colored break between responses
+    console.log(chalk.yellowBright.bgCyanBright.bold("+++++++++++++++++++++++++++++++++"));
 
     //prompt player for a new letter unless 0
     if (game.remainingGuesses > 0) {
@@ -88,8 +101,32 @@ function guessAgain() {
             }
         ]).then(function (userInput) {
 
-            // Collect Letter Input
-            var letterGuessed = userInput.letter.toLowerCase();
+            //take in players letter
+            var playersGuess = userInput.letter.toLowerCase();
 
-            // Valid input
-            if (dictionary.indexOf(letterGuessed) == -1) {
+            //validate players input
+            if (letter.indexOf(playersGuess) == -1) {
+
+                //not a letter response
+                console.log('You entered "' + playersGuess + '" which is not a letter. Please try again!');
+                console.log('Guesses Remaining: ' + game.remainingGuesses);
+                console.log('Letters already guessed: ' + guessedLetters);
+                guessAgain();
+
+            }
+            else if (letter.indexOf(playersGuess) != -1 && guessedLetters.indexOf(playersGuess) != -1) {
+
+                //already guessed that letter response
+                console.log('You already guessed "' + playersGuess + '". Please try again!');
+                console.log('Guesses Remaining: ' + game.remainingGuesses);
+                console.log('Letters already guessed: ' + guessedLetters);
+                guessAgain();
+
+            }
+            else {
+
+                guessedLetters.push(playersGuess);
+
+            }
+        }
+
