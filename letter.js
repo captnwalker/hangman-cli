@@ -28,7 +28,7 @@ var displayLetter = function (word, correctGuess) {
 
                 var letterFound = false;
                 for (var j = 0; j < this.goodLetter.length; j++) {
-                    
+
                     if (this.randomWord[i] == this.goodLetter[j]) {
                         show += this.goodLetter[j];
                         letterFound = true;
@@ -49,7 +49,6 @@ var displayLetter = function (word, correctGuess) {
         if (this.displayText == this.randomWord) {
             this.winner = true;
         }
-
     }
 };
 

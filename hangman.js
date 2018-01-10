@@ -11,9 +11,9 @@ var figlet = require('figlet');
 
 var displayLetter = require('./letter.js');
 
-var playersGuess = require('./word.js');
+var checkLetter = require('./word.js');
 
-var playersGuess = require('./dictionary.js');
+var wordList = require('./dictionary.js');
 
 //Game Splash Intro Screen and instructions
 figlet('', function (err, data) {
@@ -24,15 +24,7 @@ figlet('', function (err, data) {
     }
     console.log(chalk.red.bgYellowBright.hidden(data))
 
-figlet('Welcome to ', function (err, data) {
-    if (err) {
-        console.log('Something went wrong...');
-        console.dir(err);
-        return;
-    }
-    console.log(chalk.red.bgYellowBright.bold(data))
-
-    figlet('Presidential', function (err, data) {
+    figlet('Welcome to ', function (err, data) {
         if (err) {
             console.log('Something went wrong...');
             console.dir(err);
@@ -40,7 +32,7 @@ figlet('Welcome to ', function (err, data) {
         }
         console.log(chalk.red.bgYellowBright.bold(data))
 
-        figlet(' Hangman!!  ', function (err, data) {
+        figlet('Presidential', function (err, data) {
             if (err) {
                 console.log('Something went wrong...');
                 console.dir(err);
@@ -48,16 +40,26 @@ figlet('Welcome to ', function (err, data) {
             }
             console.log(chalk.red.bgYellowBright.bold(data))
 
-            console.log(chalk.blueBright.bgYellowBright.bold("        10 Guesses Permitted *** You May Begin         "));
+            figlet(' Hangman!!  ', function (err, data) {
+                if (err) {
+                    console.log('Something went wrong...');
+                    console.dir(err);
+                    return;
+                }
+                console.log(chalk.red.bgYellowBright.bold(data))
+
+                console.log(chalk.blueBright.bgYellowBright.bold("        Can You Guess the Name of the POTUS?           "));
+
+                console.log(chalk.blueBright.bgYellowBright.bold("       10 Guesses Permitted *** You May Begin          "));
+            });
         });
     });
-});
 });
 
 //Vars - set permitted letters, arrays for guesses and display 'gallows'
 var letter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-var guessed = [];
-var correctGuess = [];
+var guessedLetters = [];
+var correctGuesses = [];
 var displayGallows;
 
 //Set game var
@@ -66,7 +68,6 @@ var game = {
     potus: wordList,
     guessesRemaining: 10,
     currentWord: null,
-
 
     setupGame: function () {
         //Initial guess count
@@ -89,7 +90,7 @@ var game = {
 function guessAgain() {
 
     // Insert colored break between responses
-    console.log(chalk.yellowBright.bgCyanBright.bold("+++++++++++++++++++++++++++++++++"));
+    console.log(chalk.yellowBright.bgCyanBright.bold("++++++++++++++++++++++++++++++++++++++++++++++"));
 
     //prompt player for a new letter unless 0
     if (game.remainingGuesses > 0) {
@@ -108,7 +109,7 @@ function guessAgain() {
             if (letter.indexOf(playersGuess) == -1) {
 
                 //not a letter response
-                console.log('You entered "' + playersGuess + '" which is not a letter. Please try again!');
+                console.log(chalk.yellow.bgGreen.bold('You entered "' + playersGuess + '" which is not a letter. Please try again!'));
                 console.log('Guesses Remaining: ' + game.remainingGuesses);
                 console.log('Letters already guessed: ' + guessedLetters);
                 guessAgain();
@@ -117,7 +118,7 @@ function guessAgain() {
             else if (letter.indexOf(playersGuess) != -1 && guessedLetters.indexOf(playersGuess) != -1) {
 
                 //already guessed that letter response
-                console.log('You already guessed "' + playersGuess + '". Please try again!');
+                console.log(chalk.yellow.bgGreen.bold('You already guessed "' + playersGuess + '". Please try again!'));
                 console.log('Guesses Remaining: ' + game.remainingGuesses);
                 console.log('Letters already guessed: ' + guessedLetters);
                 guessAgain();
@@ -127,6 +128,52 @@ function guessAgain() {
 
                 guessedLetters.push(playersGuess);
 
-            }
-        }
+                //check for letter in random word
+                var checkWord = checkLetter(playersGuess, game.currentWord);
 
+                //update word
+                if (checkWord) {
+
+                    correctGuesses.push(playersGuess);
+
+                    displayGallows = new displayLetter(game.currentWord, correctGuesses);
+                    displayGallows.parseDisplay();
+
+
+                    //winner??
+                    if (displayGallows.winner) {
+
+                        console.log(chalk.redBright.bgWhite.bold('    ***WINNER WINNER!! CHICKEN DINNER!!***     '));
+                        console.log(chalk.blueBright.bgWhite.bold('       You are a True American Patriot!        '));
+                        console.log(chalk.blueBright.bgWhite.bold('Celebrate with a Hotdog & a Slice of Apple Pie!'))
+                        return;
+                    }
+                    //if not, decrement guesses and call guessAgain
+                    else {
+                        console.log('Guesses Remaining: ' + game.remainingGuesses);
+                        console.log('Letters already guessed: ' + guessedLetters);
+                        guessAgain();
+                    }
+                }
+                //otherwise, decrement guesses and parse gallows
+                else {
+                    game.remainingGuesses--;
+
+                    displayGallows.parseDisplay();
+                    console.log('Guesses Remaining: ' + game.remainingGuesses);
+                    console.log('Letters already guessed: ' + guessedLetters);
+                    guessAgain();
+                }
+            }
+        });
+    }
+    //player losses when out of guesses 
+    else {
+
+        console.log(chalk.white.bgRedBright.bold('  You Lose...and the Trap-Door Swings Open!  '));
+        console.log(chalk.yellowBright.bgRedBright.bold('By the way, The POTUS was President "' + game.currentWord + '"'));
+    }
+}
+
+//call the setupGame function
+game.setupGame();
