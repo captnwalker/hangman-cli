@@ -89,7 +89,7 @@ var game = {
 
 function guessAgain() {
 
-    // Insert colored break between responses
+    // Insert colored, stylized break between responses
     console.log(chalk.yellowBright.bgCyanBright.bold("++++++++++++++++++++++++++++++++++++++++++++++"));
 
     //prompt player for a new letter unless 0
@@ -109,8 +109,9 @@ function guessAgain() {
             if (letter.indexOf(playersGuess) == -1) {
 
                 //not a letter response
-                console.log(chalk.yellow.bgGreen.bold('You entered "' + playersGuess + '" which is not a letter. Please try again!'));
-                console.log('Guesses Remaining: ' + game.remainingGuesses);
+                console.log(chalk.yellow.bgRed.bold('     You entered "' + playersGuess + '" which is not a letter, Einstien!      '));
+                // console.log('Guesses Remaining: ' + game.remainingGuesses);
+                console.log(chalk.yellow.bgRed.bold(game.remainingGuesses + ' Guesses Remaining. Try sticking to the Alphabet, Doofus!!'));
                 console.log('Letters already guessed: ' + guessedLetters);
                 guessAgain();
 
@@ -118,8 +119,9 @@ function guessAgain() {
             else if (letter.indexOf(playersGuess) != -1 && guessedLetters.indexOf(playersGuess) != -1) {
 
                 //already guessed that letter response
-                console.log(chalk.yellow.bgGreen.bold('You already guessed "' + playersGuess + '". Please try again!'));
-                console.log('Guesses Remaining: ' + game.remainingGuesses);
+                console.log(chalk.yellow.bgRed.bold('    You already guessed "' + playersGuess + '", Captain Brainiac.        \n      Zombies eat Brains...so you are Safe!           '));
+                // console.log('Guesses Remaining: ' + game.remainingGuesses);
+                console.log(chalk.yellow.bgRed.bold(game.remainingGuesses + ' Guesses Remaining. Choose A NEW LETTER, BumbleBrain!'));
                 console.log('Letters already guessed: ' + guessedLetters);
                 guessAgain();
 
@@ -150,7 +152,8 @@ function guessAgain() {
                     }
                     //if not, decrement guesses and call guessAgain
                     else {
-                        console.log('Guesses Remaining: ' + game.remainingGuesses);
+                        //console.log('Guesses Remaining: ' + game.remainingGuesses);
+                        console.log(game.remainingGuesses + ' Guesses Remaining. Choose Wisely!');
                         console.log('Letters already guessed: ' + guessedLetters);
                         guessAgain();
                     }
@@ -160,7 +163,8 @@ function guessAgain() {
                     game.remainingGuesses--;
 
                     displayGallows.parseDisplay();
-                    console.log('Guesses Remaining: ' + game.remainingGuesses);
+                    //console.log('Guesses Remaining: ' + game.remainingGuesses);
+                    console.log(game.remainingGuesses + ' Guesses Remaining. Choose Wisely!');
                     console.log('Letters already guessed: ' + guessedLetters);
                     guessAgain();
                 }
