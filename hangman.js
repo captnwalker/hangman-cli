@@ -119,7 +119,7 @@ function guessAgain() {
             else if (letter.indexOf(playersGuess) != -1 && guessedLetters.indexOf(playersGuess) != -1) {
 
                 //already guessed that letter response
-                console.log(chalk.yellow.bgRed.bold('    You already guessed "' + playersGuess + '", Captain Brainiac.        \n      Zombies eat Brains...so you are Safe!           '));
+                console.log(chalk.yellow.bgRed.bold('    You already guessed "' + playersGuess + '", Captain Brainiac!        \n      Zombies eat Brains...so you are Safe!           '));
                 // console.log('Guesses Remaining: ' + game.remainingGuesses);
                 console.log(chalk.yellow.bgRed.bold(game.remainingGuesses + ' Guesses Remaining. Choose A NEW LETTER, BumbleBrain!'));
                 console.log('Letters already guessed: ' + guessedLetters);
